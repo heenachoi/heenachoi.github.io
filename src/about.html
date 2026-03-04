@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Heena Choi</title>
+    <meta name="description"
+        content="About Heena Choi — Designer based in Seoul, working across branding, editorial and graphic design.">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        (function () {
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
+</head>
+
+<body class="about-page">
+
+    <!-- SVG Filter for Gooey Effect -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <defs>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"
+                    result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Custom Cursor (Wrapped for filter) -->
+    <div class="cursor-wrapper">
+        <div id="custom-cursor"></div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-brand">Heena Choi</a>
+            <span class="nav-tagline">Exploratory design + technology</span>
+            <span id="nav-metadata" class="nav-metadata">LOADING...</span>
+        </div>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="work.html" class="nav-link">Work</a>
+                <a href="work.html" class="nav-link">Research</a>
+                <a href="about.html" class="nav-link active">About</a>
+            </div>
+            <a href="mailto:heenachoi@example.com" class="nav-contact">Contact</a>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <span class="icon-sun">☀</span>
+                <span class="icon-moon">☾</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- About Content -->
+    <main class="about-main">
+
+        <!-- Hero intro -->
+        <section class="about-hero">
+            <h1 class="about-headline">Designer, Explorer,<br>Creative Technologist.</h1>
+        </section>
+
+        <!-- Bio section -->
+        <section class="about-bio">
+            <div class="bio-grid">
+                <div class="bio-text">
+                    <p class="bio-large">Heena Choi is a designer based in Seoul, working across branding, editorial
+                        and graphic design — with a focus on AI-driven creative tools.</p>
+                    <p class="bio-body">I believe in the intersection of technology and design, where experimental tools
+                        meet human creativity. My work explores how AI can amplify the design process while maintaining
+                        a
+                        deeply personal, human touch.</p>
+                </div>
+                <div class="bio-details">
+                    <div class="detail-card">
+                        <h3 class="detail-label">Capabilities</h3>
+                        <p class="detail-value">BX/BI, Editorial Design, Graphic Design</p>
+                        <p class="detail-note">All with AI Design (Midjourney, Figma, C4D)</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3 class="detail-label">Education</h3>
+                        <p class="detail-value">Ewha Womans University</p>
+                        <p class="detail-note">Design</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3 class="detail-label">Tools</h3>
+                        <p class="detail-value">Figma, Cinema 4D, Midjourney</p>
+                        <p class="detail-note">Adobe Suite, HTML/CSS/JS</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact section -->
+        <section class="about-contact">
+            <h2 class="contact-heading">Let's create something together.</h2>
+            <a href="mailto:ellachoi@ewha.ac.kr" class="contact-email-link gooey-target">
+                ellachoi@ewha.ac.kr
+                <div class="goo-blob"></div>
+            </a>
+            <div class="contact-social">
+                <a href="#" class="social-link gooey-target">
+                    Instagram
+                    <div class="goo-blob"></div>
+                </a>
+                <a href="#" class="social-link gooey-target">
+                    Behance
+                    <div class="goo-blob"></div>
+                </a>
+                <a href="#" class="social-link gooey-target">
+                    LinkedIn
+                    <div class="goo-blob"></div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <p>© 2026 Heena Choi. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.getElementById('custom-cursor');
+            const hoverEls = document.querySelectorAll('a, button, .detail-card');
+
+            if (window.matchMedia("(pointer: fine)").matches && cursor) {
+                let mx = 0, my = 0, cx = 0, cy = 0;
+                document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+                (function loop() {
+                    cx += (mx - cx) * 0.15;
+                    cy += (my - cy) * 0.15;
+                    cursor.style.transform = `translate(${cx - 8}px, ${cy - 8}px)`;
+                    requestAnimationFrame(loop);
+                })();
+                hoverEls.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                });
+            } else if (cursor) {
+                cursor.style.display = 'none';
+                document.body.style.cursor = 'auto';
+            }
+
+            // Entrance animations
+            const animEls = document.querySelectorAll(
+                '.about-headline, .bio-large, .bio-body, .detail-card, .contact-heading, .contact-email-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+            animEls.forEach(el => observer.observe(el));
+        });
+    </script>
+    <script src="js/theme.js"></script>
+</body>
+
+</html>
