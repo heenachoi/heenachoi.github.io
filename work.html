@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work — Heena Choi</title>
+    <meta name="description" content="Selected works by Heena Choi — BX/BI, Graphic, Editorial Design.">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        (function () {
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
+</head>
+
+<body class="work-page">
+
+    <!-- SVG Filter for Gooey Effect -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <defs>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"
+                    result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Custom Cursor (Wrapped for filter) -->
+    <div class="cursor-wrapper">
+        <div id="custom-cursor"></div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-brand">Heena Choi</a>
+            <span class="nav-tagline">Exploratory design + technology</span>
+            <span id="nav-metadata" class="nav-metadata">LOADING...</span>
+        </div>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="work.html" class="nav-link active">Work</a>
+                <a href="work.html" class="nav-link">Research</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+            <a href="mailto:heenachoi@example.com" class="nav-contact">Contact</a>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <span class="icon-sun">☀</span>
+                <span class="icon-moon">☾</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Work Hero -->
+    <section class="page-hero">
+        <h1 class="page-title">Selected Work</h1>
+        <p class="page-subtitle">BX/BI · Editorial · Graphic · UX/UI</p>
+    </section>
+
+    <!-- Project Cards -->
+    <section class="work-grid">
+
+        <a href="#" class="project-card gooey-target" id="project-01">
+            <div class="card-number">01</div>
+            <div class="card-content">
+                <h2 class="card-title">CORPUS</h2>
+                <span class="card-category">BX / BI</span>
+            </div>
+            <div class="card-preview">
+                <div class="card-preview-bg"></div>
+            </div>
+            <div class="card-arrow">→</div>
+            <div class="goo-blob"></div>
+        </a>
+
+        <a href="#" class="project-card gooey-target" id="project-02">
+            <div class="card-number">02</div>
+            <div class="card-content">
+                <h2 class="card-title">외모정병</h2>
+                <span class="card-category">Editorial</span>
+            </div>
+            <div class="card-preview">
+                <div class="card-preview-bg"></div>
+            </div>
+            <div class="card-arrow">→</div>
+            <div class="goo-blob"></div>
+        </a>
+
+        <a href="#" class="project-card gooey-target" id="project-03">
+            <div class="card-number">03</div>
+            <div class="card-content">
+                <h2 class="card-title">Cartographic of Time</h2>
+                <span class="card-category">Graphic</span>
+            </div>
+            <div class="card-preview">
+                <div class="card-preview-bg"></div>
+            </div>
+            <div class="card-arrow">→</div>
+            <div class="goo-blob"></div>
+        </a>
+
+        <a href="#" class="project-card gooey-target" id="project-04">
+            <div class="card-number">04</div>
+            <div class="card-content">
+                <h2 class="card-title">나는 떠도는 것이 아니라, 돌아가는 걸지도 모른다</h2>
+                <span class="card-category">UX/UI, Editorial</span>
+            </div>
+            <div class="card-preview">
+                <div class="card-preview-bg"></div>
+            </div>
+            <div class="card-arrow">→</div>
+            <div class="goo-blob"></div>
+        </a>
+
+        <a href="#" class="project-card gooey-target" id="project-05">
+            <div class="card-number">05</div>
+            <div class="card-content">
+                <h2 class="card-title">민들레전</h2>
+                <span class="card-category">Graphic</span>
+            </div>
+            <div class="card-preview">
+                <div class="card-preview-bg"></div>
+            </div>
+            <div class="card-arrow">→</div>
+            <div class="goo-blob"></div>
+        </a>
+
+    </section>
+
+    <!-- Minimal Footer -->
+    <footer class="page-footer">
+        <p>© 2026 Heena Choi</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.getElementById('custom-cursor');
+            const hoverEls = document.querySelectorAll('a, button, .project-card');
+
+            if (window.matchMedia("(pointer: fine)").matches && cursor) {
+                let mx = 0, my = 0, cx = 0, cy = 0;
+                document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+                (function loop() {
+                    cx += (mx - cx) * 0.15;
+                    cy += (my - cy) * 0.15;
+                    cursor.style.transform = `translate(${cx - 8}px, ${cy - 8}px)`;
+                    requestAnimationFrame(loop);
+                })();
+                hoverEls.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                });
+            } else if (cursor) {
+                cursor.style.display = 'none';
+                document.body.style.cursor = 'auto';
+            }
+
+            // Stagger card entrance
+            document.querySelectorAll('.project-card').forEach((card, i) => {
+                card.style.animationDelay = `${i * 0.1}s`;
+            });
+        });
+    </script>
+    <script src="js/theme.js"></script>
+</body>
+
+</html>
